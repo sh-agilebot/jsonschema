@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/invopop/jsonschema/examples"
+	"github.com/sh-agilebot/jsonschema/examples"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -355,7 +355,7 @@ func TestReflectFromType(t *testing.T) {
 	typ := reflect.TypeOf(tu)
 
 	s := r.ReflectFromType(typ)
-	assert.EqualValues(t, "https://github.com/invopop/jsonschema/test-user", s.ID)
+	assert.EqualValues(t, "https://github.com/sh-agilebot/jsonschema/test-user", s.ID)
 
 	x := struct {
 		Test string
@@ -491,7 +491,7 @@ func TestSchemaGeneration(t *testing.T) {
 func prepareCommentReflector(t *testing.T) *Reflector {
 	t.Helper()
 	r := new(Reflector)
-	err := r.AddGoComments("github.com/invopop/jsonschema", "./examples")
+	err := r.AddGoComments("github.com/sh-agilebot/jsonschema", "./examples")
 	require.NoError(t, err, "did not expect error while adding comments")
 	return r
 }
