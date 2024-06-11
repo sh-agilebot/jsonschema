@@ -106,6 +106,8 @@ type Reflector struct {
 	// default of requiring any key *not* tagged with `json:,omitempty`.
 	RequiredFromJSONSchemaTags bool
 
+	AllowExportedTags bool
+
 	// Do not reference definitions. This will remove the top-level $defs map and
 	// instead cause the entire structure of types to be output in one tree. The
 	// list of type definitions (`$defs`) will not be included.
@@ -1013,6 +1015,12 @@ func (r *Reflector) fieldNameTag() string {
 func (r *Reflector) reflectFieldName(f reflect.StructField) (string, bool, bool, bool) {
 	jsonTagString := f.Tag.Get(r.fieldNameTag())
 	jsonTags := strings.Split(jsonTagString, ",")
+
+	if r.AllowExportedTags {
+		if f.Tag.Get("exported") != "true" {
+			return "", false, false, false
+		}
+	}
 
 	if ignoredByJSONTags(jsonTags) {
 		return "", false, false, false
